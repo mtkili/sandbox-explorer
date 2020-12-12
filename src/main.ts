@@ -1,52 +1,40 @@
 import { Grid } from "./grid";
 
+let canvas = document.getElementById(
+    "canvas",
+) as HTMLCanvasElement;
+let context = canvas.getContext(
+    "2d",
+) as CanvasRenderingContext2D;
+let grid: Grid = new Grid(canvas, context);
+
+let resizeWindow = () => {
+    canvas.width = window.innerWidth * 1;
+    canvas.height = window.innerHeight * 1;
+    grid.drawGrid(canvas.width, canvas.height);
+};
+window.onresize = resizeWindow;
+
 class DrawingApp {
-    private canvas: HTMLCanvasElement;
-    private myContext: CanvasRenderingContext2D;
     private paint: boolean;
 
     private clickX: number[] = [];
     private clickY: number[] = [];
     private clickDrag: boolean[] = [];
 
-    private grid: Grid;
-
     constructor() {
-        let canvas = document.getElementById(
-            "canvas",
-        ) as HTMLCanvasElement;
-        let context = canvas.getContext("2d");
-        if (context) {
-            this.myContext = context;
-            this.myContext.lineCap = "round";
-            this.myContext.lineJoin = "round";
-            this.myContext.strokeStyle = "black";
-            this.myContext.lineWidth = 1;
-        } else {
-            console.error("No canvas found!");
-        }
+        context.lineCap = "round";
+        context.lineJoin = "round";
+        context.strokeStyle = "black";
+        context.lineWidth = 1;
 
-        window.onresize = this.resizeCanvas;
-
-        this.canvas = canvas;
         this.paint = false;
+        resizeWindow();
         this.redraw();
         this.createUserEvents();
-        this.resizeCanvas();
-
-        this.grid = new Grid(canvas, this.myContext);
-        this.grid.drawGrid();
-    }
-
-    private resizeCanvas() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        // this.grid.drawGrid();
     }
 
     private createUserEvents() {
-        let canvas = this.canvas;
-
         window.addEventListener(
             "keypress",
             this.keyEventHandler,
@@ -97,9 +85,9 @@ class DrawingApp {
 
     private redraw() {
         let clickX = this.clickX;
-        let context = this.myContext;
         let clickDrag = this.clickDrag;
         let clickY = this.clickY;
+        context.strokeStyle = "rgb(0,0,255)";
         for (let i = 0; i < clickX.length; ++i) {
             context.beginPath();
             if (clickDrag[i] && i) {
@@ -149,8 +137,8 @@ class DrawingApp {
         let mouseY = (e as TouchEvent).changedTouches
             ? (e as TouchEvent).changedTouches[0].pageY
             : (e as MouseEvent).pageY;
-        mouseX -= this.canvas.offsetLeft;
-        mouseY -= this.canvas.offsetTop;
+        mouseX -= canvas.offsetLeft;
+        mouseY -= canvas.offsetTop;
 
         this.paint = true;
         this.addClick(mouseX, mouseY, false);
@@ -166,8 +154,8 @@ class DrawingApp {
         let mouseY = (e as TouchEvent).changedTouches
             ? (e as TouchEvent).changedTouches[0].pageY
             : (e as MouseEvent).pageY;
-        mouseX -= this.canvas.offsetLeft;
-        mouseY -= this.canvas.offsetTop;
+        mouseX -= canvas.offsetLeft;
+        mouseY -= canvas.offsetTop;
 
         if (this.paint) {
             this.addClick(mouseX, mouseY, true);

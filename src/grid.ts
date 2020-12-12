@@ -10,10 +10,10 @@ export class Grid {
         this.context = context;
     }
 
-    public drawGrid() {
+    public drawGrid(w: number, h: number) {
         let step = 20;
-        let w = this.canvas.width;
-        let h = this.canvas.height;
+        // let w = this.canvas.width;
+        // let h = this.canvas.height;
         let ctx = this.context;
         ctx.beginPath();
         for (var x = 0; x <= w; x += step) {
