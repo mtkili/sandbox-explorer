@@ -1,3 +1,5 @@
+import { Grid } from "./grid";
+
 class DrawingApp {
     private canvas: HTMLCanvasElement;
     private myContext: CanvasRenderingContext2D;
@@ -6,6 +8,8 @@ class DrawingApp {
     private clickX: number[] = [];
     private clickY: number[] = [];
     private clickDrag: boolean[] = [];
+
+    private grid: Grid;
 
     constructor() {
         let canvas = document.getElementById(
@@ -26,6 +30,8 @@ class DrawingApp {
         this.paint = false;
         this.redraw();
         this.createUserEvents();
+        this.grid = new Grid(canvas, this.myContext);
+        this.grid.drawGrid();
     }
 
     private createUserEvents() {
