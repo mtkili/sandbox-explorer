@@ -1,23 +1,7 @@
 import { Grid } from "./grid";
 
-let canvas = document.getElementById(
-    "canvas",
-) as HTMLCanvasElement;
-let context = canvas.getContext(
-    "2d",
-) as CanvasRenderingContext2D;
-let grid: Grid = new Grid(canvas, context);
-
-let resizeWindow = () => {
-    canvas.width = window.innerWidth * 1;
-    canvas.height = window.innerHeight * 1;
-    grid.drawGrid(canvas.width, canvas.height);
-};
-window.onresize = resizeWindow;
-
 class DrawingApp {
-    private paint: boolean;
-
+    private paint: boolean = false;
     private clickX: number[] = [];
     private clickY: number[] = [];
     private clickDrag: boolean[] = [];
@@ -29,7 +13,6 @@ class DrawingApp {
         context.lineWidth = 1;
 
         this.paint = false;
-        resizeWindow();
         this.redraw();
         this.createUserEvents();
     }
@@ -83,7 +66,7 @@ class DrawingApp {
         );
     }
 
-    private redraw() {
+    public redraw() {
         let clickX = this.clickX;
         let clickDrag = this.clickDrag;
         let clickY = this.clickY;
@@ -166,4 +149,20 @@ class DrawingApp {
     };
 }
 
-new DrawingApp();
+let canvas = document.getElementById(
+    "canvas",
+) as HTMLCanvasElement;
+let context = canvas.getContext(
+    "2d",
+) as CanvasRenderingContext2D;
+let grid: Grid = new Grid(canvas, context);
+let app: DrawingApp = new DrawingApp();
+
+let resizeWindow = () => {
+    canvas.width = window.innerWidth * 1;
+    canvas.height = window.innerHeight * 1;
+    grid.drawGrid(canvas.width, canvas.height);
+    app.redraw();
+};
+window.onresize = resizeWindow;
+resizeWindow();
