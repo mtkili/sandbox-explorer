@@ -31,6 +31,19 @@ class DrawingApp {
     private createUserEvents() {
         let canvas = this.canvas;
 
+        window.addEventListener(
+            "keypress",
+            this.keyEventHandler,
+        );
+        window.addEventListener(
+            "keydown",
+            this.keyEventHandler,
+        );
+        window.addEventListener(
+            "keyup",
+            this.keyEventHandler,
+        );
+
         canvas.addEventListener(
             "mousedown",
             this.pressEventHandler,
@@ -105,6 +118,10 @@ class DrawingApp {
 
     private cancelEventHandler = () => {
         this.paint = false;
+    };
+
+    private keyEventHandler = (e: KeyboardEvent) => {
+        console.log(e);
     };
 
     private pressEventHandler = (
