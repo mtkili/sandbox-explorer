@@ -10,7 +10,7 @@ export class Grid {
         this.context = context;
     }
 
-    drawGrid() {
+    public drawGrid() {
         let step = 20;
         let w = this.canvas.width;
         let h = this.canvas.height;
@@ -21,7 +21,7 @@ export class Grid {
             ctx.lineTo(x, h);
         }
         // set the color of the line
-        ctx.strokeStyle = "rgb(255,0,0)";
+        ctx.strokeStyle = "rgb(220,220,220)";
         ctx.lineWidth = 1;
         // the stroke will actually paint the current path
         ctx.stroke();
@@ -32,7 +32,7 @@ export class Grid {
             ctx.lineTo(w, y);
         }
         // set the color of the line
-        ctx.strokeStyle = "rgb(20,20,20)";
+        ctx.strokeStyle = "rgb(220,220,220)";
         // just for fun
         ctx.lineWidth = 1;
         // for your original question - you need to stroke only once

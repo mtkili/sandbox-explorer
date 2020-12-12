@@ -26,12 +26,22 @@ class DrawingApp {
             console.error("No canvas found!");
         }
 
+        window.onresize = this.resizeCanvas;
+
         this.canvas = canvas;
         this.paint = false;
         this.redraw();
         this.createUserEvents();
+        this.resizeCanvas();
+
         this.grid = new Grid(canvas, this.myContext);
         this.grid.drawGrid();
+    }
+
+    private resizeCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        // this.grid.drawGrid();
     }
 
     private createUserEvents() {
