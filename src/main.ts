@@ -1,4 +1,5 @@
 import { Grid } from "./grid";
+import { Rectangular } from "./rect";
 
 class DrawingApp {
     private paint: boolean = false;
@@ -6,13 +7,14 @@ class DrawingApp {
     private clickY: number[] = [];
     private clickDrag: boolean[] = [];
 
-    constructor() {
+    constructor(private rect: Rectangular) {
         context.lineCap = "round";
         context.lineJoin = "round";
         context.strokeStyle = "black";
         context.lineWidth = 1;
 
         this.paint = false;
+        this.rect = new Rectangular(canvas, context);
         this.redraw();
         this.createUserEvents();
     }
@@ -46,6 +48,10 @@ class DrawingApp {
         canvas.addEventListener(
             "mouseout",
             this.cancelEventHandler,
+        );
+        canvas.addEventListener(
+            "mousewheel",
+            this.mouseWheelHandler,
         );
 
         canvas.addEventListener(
@@ -86,6 +92,7 @@ class DrawingApp {
             context.stroke();
         }
         context.closePath();
+        this.rect.draw();
     }
 
     private addClick(
@@ -108,6 +115,10 @@ class DrawingApp {
     };
 
     private keyEventHandler = (e: KeyboardEvent) => {
+        console.log(e);
+    };
+
+    private mouseWheelHandler = (e: WheelEvent) => {
         console.log(e);
     };
 
