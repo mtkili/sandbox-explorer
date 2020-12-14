@@ -6,6 +6,7 @@ class DrawingApp {
     private clickX: number[] = [];
     private clickY: number[] = [];
     private clickDrag: boolean[] = [];
+    private scaleXY: number = 1.0;
 
     constructor(private rect: Rectangular) {
         context.lineCap = "round";
@@ -76,6 +77,9 @@ class DrawingApp {
         let clickX = this.clickX;
         let clickDrag = this.clickDrag;
         let clickY = this.clickY;
+        //        context.scale(this.scaleXY, this.scaleXY);
+        //       context.scale(0.99, 0.99);
+
         context.strokeStyle = "rgb(0,0,255)";
         for (let i = 0; i < clickX.length; ++i) {
             context.beginPath();
@@ -93,6 +97,15 @@ class DrawingApp {
         }
         context.closePath();
         this.rect.draw();
+
+        context.font = "36px Verdana";
+        context.fillStyle = "black";
+        context.fillText(
+            "I can draw text, too!",
+            10,
+            200,
+            200,
+        );
     }
 
     private addClick(
@@ -120,6 +133,10 @@ class DrawingApp {
 
     private mouseWheelHandler = (e: WheelEvent) => {
         console.log(e);
+        var wheel = e.wheelDelta / 120;
+
+        this.scaleXY = 0.1;
+        this.redraw();
     };
 
     private pressEventHandler = (
