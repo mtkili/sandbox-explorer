@@ -86,6 +86,7 @@ export class DrawingApp {
         let mouseY = (e as TouchEvent).changedTouches
             ? (e as TouchEvent).changedTouches[0].pageY
             : (e as MouseEvent).pageY;
+        let redraw: boolean = false;
         mouseX -= this.canvas.offsetLeft;
         mouseY -= this.canvas.offsetTop;
         this.mouseX = mouseX;
@@ -94,6 +95,15 @@ export class DrawingApp {
         if (this.ctrlKeyDown) {
             this.paint = true;
             this.addClick(mouseX, mouseY, false);
+            redraw = true;
+        }
+
+        for (let i = 0; i < this.objects.length; ++i) {
+            this.objects[i].clickToSelect(mouseX, mouseY);
+            redraw = true;
+        }
+
+        if (redraw) {
             this.redraw();
         }
     };
@@ -180,12 +190,22 @@ export class DrawingApp {
         //        context.scale(this.scaleXY, this.scaleXY);
         //       context.scale(0.99, 0.99);
 
+        this.context.beginPath();
         this.context.clearRect(
             0,
             0,
             this.canvas.width,
             this.canvas.height,
         );
+        this.context.fillStyle = "rgb(20,20,20)";
+        this.context.fillRect(
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height,
+        );
+        this.context.stroke();
+
         this.grid.drawGrid(15);
 
         this.context.strokeStyle = "rgb(0,0,255)";
@@ -214,7 +234,7 @@ export class DrawingApp {
         }
 
         this.context.font = "36px Verdana";
-        this.context.fillStyle = "black";
+        this.context.fillStyle = "white";
         this.context.fillText(
             "I can draw text, too!",
             10,
