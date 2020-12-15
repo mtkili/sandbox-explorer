@@ -1,19 +1,13 @@
 export class Grid {
-    private canvas: HTMLCanvasElement;
-    private context: CanvasRenderingContext2D;
-
     constructor(
-        canvas: HTMLCanvasElement,
-        context: CanvasRenderingContext2D,
+        private canvas: HTMLCanvasElement,
+        private context: CanvasRenderingContext2D,
     ) {
-        this.canvas = canvas;
-        this.context = context;
     }
 
-    public drawGrid(w: number, h: number) {
-        let step = 20;
-        // let w = this.canvas.width;
-        // let h = this.canvas.height;
+    public drawGrid(step: number) {
+        let w = this.canvas.width;
+        let h = this.canvas.height;
         let ctx = this.context;
         ctx.beginPath();
         for (var x = 0; x <= w; x += step) {

@@ -1,21 +1,21 @@
-export class Rectangular {
-    private x: number;
-
+export class Box {
     constructor(
         private canvas: HTMLCanvasElement,
         private context: CanvasRenderingContext2D,
-    ) {
-        this.x = 10;
-    }
+        private x: number,
+        private y: number,
+        private w: number,
+        private h: number,
+    ) {}
 
     draw() {
         let ctx = this.context;
 
         ctx.beginPath();
-        ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+        ctx.rect(this.x, this.y, this.w, this.h);
 
         // set the color of the line
-        ctx.strokeStyle = "rgb(220,0,0)";
+        ctx.strokeStyle = "rgb(60,150,30)";
         ctx.lineWidth = 1;
 
         // the stroke will actually paint the current path
