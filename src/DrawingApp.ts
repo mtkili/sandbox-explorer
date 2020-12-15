@@ -1,0 +1,188 @@
+import { Grid } from "./Grid";
+import { Rectangular } from "./Rect";
+
+export class DrawingApp {
+    private paint: boolean = false;
+    private clickX: number[] = [];
+    private clickY: number[] = [];
+    private clickDrag: boolean[] = [];
+    private scaleXY: number = 1.0;
+    private rect: Rectangular;
+
+    constructor(
+        private grid: Grid,
+        private canvas: HTMLCanvasElement,
+        private context: CanvasRenderingContext2D,
+    ) {
+        this.context.lineCap = "round";
+        this.context.lineJoin = "round";
+        this.context.strokeStyle = "black";
+        this.context.lineWidth = 1;
+
+        this.paint = false;
+        this.rect = new Rectangular(canvas, context);
+        this.redraw();
+        this.createUserEvents();
+    }
+
+    private createUserEvents() {
+        window.addEventListener(
+            "keypress",
+            this.keyEventHandler,
+        );
+        window.addEventListener(
+            "keydown",
+            this.keyEventHandler,
+        );
+        window.addEventListener(
+            "keyup",
+            this.keyEventHandler,
+        );
+
+        this.canvas.addEventListener(
+            "mousedown",
+            this.pressEventHandler,
+        );
+        this.canvas.addEventListener(
+            "mousemove",
+            this.dragEventHandler,
+        );
+        this.canvas.addEventListener(
+            "mouseup",
+            this.releaseEventHandler,
+        );
+        this.canvas.addEventListener(
+            "mouseout",
+            this.cancelEventHandler,
+        );
+        this.canvas.addEventListener(
+            "mousewheel",
+            this.mouseWheelHandler,
+        );
+
+        this.canvas.addEventListener(
+            "touchstart",
+            this.pressEventHandler,
+        );
+        this.canvas.addEventListener(
+            "touchmove",
+            this.dragEventHandler,
+        );
+        this.canvas.addEventListener(
+            "touchend",
+            this.releaseEventHandler,
+        );
+        this.canvas.addEventListener(
+            "touchcancel",
+            this.cancelEventHandler,
+        );
+    }
+
+    public redraw() {
+        let clickX = this.clickX;
+        let clickDrag = this.clickDrag;
+        let clickY = this.clickY;
+        //        context.scale(this.scaleXY, this.scaleXY);
+        //       context.scale(0.99, 0.99);
+
+        this.grid.drawGrid(20, 10);
+
+        this.context.strokeStyle = "rgb(0,0,255)";
+        for (let i = 0; i < clickX.length; ++i) {
+            this.context.beginPath();
+            if (clickDrag[i] && i) {
+                this.context.moveTo(
+                    clickX[i - 1],
+                    clickY[i - 1],
+                );
+            } else {
+                this.context.moveTo(
+                    clickX[i] - 1,
+                    clickY[i],
+                );
+            }
+
+            this.context.lineTo(clickX[i], clickY[i]);
+            this.context.stroke();
+        }
+        this.context.closePath();
+        this.rect.draw();
+
+        this.context.font = "36px Verdana";
+        this.context.fillStyle = "black";
+        this.context.fillText(
+            "I can draw text, too!",
+            10,
+            200,
+            200,
+        );
+    }
+
+    private addClick(
+        x: number,
+        y: number,
+        dragging: boolean,
+    ) {
+        this.clickX.push(x);
+        this.clickY.push(y);
+        this.clickDrag.push(dragging);
+    }
+
+    private releaseEventHandler = () => {
+        this.paint = false;
+        this.redraw();
+    };
+
+    private cancelEventHandler = () => {
+        this.paint = false;
+    };
+
+    private keyEventHandler = (e: KeyboardEvent) => {
+        console.log(e);
+    };
+
+    private mouseWheelHandler = (e: WheelEvent) => {
+        console.log(e);
+        var wheel = e.wheelDelta / 120;
+
+        this.scaleXY = 0.1;
+        this.redraw();
+    };
+
+    private pressEventHandler = (
+        e: MouseEvent | TouchEvent,
+    ) => {
+        let mouseX = (e as TouchEvent).changedTouches
+            ? (e as TouchEvent).changedTouches[0].pageX
+            : (e as MouseEvent).pageX;
+        let mouseY = (e as TouchEvent).changedTouches
+            ? (e as TouchEvent).changedTouches[0].pageY
+            : (e as MouseEvent).pageY;
+        mouseX -= this.canvas.offsetLeft;
+        mouseY -= this.canvas.offsetTop;
+
+        this.paint = true;
+        this.addClick(mouseX, mouseY, false);
+        this.redraw();
+    };
+
+    private dragEventHandler = (
+        e: MouseEvent | TouchEvent,
+    ) => {
+        let mouseX = (e as TouchEvent).changedTouches
+            ? (e as TouchEvent).changedTouches[0].pageX
+            : (e as MouseEvent).pageX;
+        let mouseY = (e as TouchEvent).changedTouches
+            ? (e as TouchEvent).changedTouches[0].pageY
+            : (e as MouseEvent).pageY;
+        mouseX -= this.canvas.offsetLeft;
+        mouseY -= this.canvas.offsetTop;
+
+        if (this.paint) {
+            this.addClick(mouseX, mouseY, true);
+            this.redraw();
+        }
+
+        e.preventDefault();
+    };
+}
