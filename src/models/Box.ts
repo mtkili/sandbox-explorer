@@ -13,9 +13,13 @@ export class Box {
 
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.w, this.h);
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x + this.w, this.y + this.h);
+        ctx.moveTo(this.x + this.w, this.y);
+        ctx.lineTo(this.x, this.y + this.h);
 
         // set the color of the line
-        ctx.strokeStyle = "rgb(60,150,30)";
+        ctx.strokeStyle = "rgb(60,90,30)";
         ctx.lineWidth = 1;
 
         // the stroke will actually paint the current path

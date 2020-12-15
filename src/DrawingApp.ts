@@ -45,16 +45,18 @@ export class DrawingApp {
     private releaseEventHandler = () => {
         this.paint = false;
 
-        this.objects.push(
-            new Box(
-                this.canvas,
-                this.context,
-                this.mouseX,
-                this.mouseY,
-                50,
-                75,
-            ),
-        );
+        if (this.shiftKeyDown) {
+            this.objects.push(
+                new Box(
+                    this.canvas,
+                    this.context,
+                    this.mouseX,
+                    this.mouseY,
+                    50,
+                    75,
+                ),
+            );
+        }
 
         this.redraw();
     };
@@ -89,9 +91,11 @@ export class DrawingApp {
         this.mouseX = mouseX;
         this.mouseY = mouseY;
 
-        this.paint = true;
-        this.addClick(mouseX, mouseY, false);
-        this.redraw();
+        if (this.ctrlKeyDown) {
+            this.paint = true;
+            this.addClick(mouseX, mouseY, false);
+            this.redraw();
+        }
     };
 
     private dragEventHandler = (
@@ -108,7 +112,7 @@ export class DrawingApp {
         this.mouseX = mouseX;
         this.mouseY = mouseY;
 
-        if (this.paint) {
+        if (this.paint && this.ctrlKeyDown) {
             this.addClick(mouseX, mouseY, true);
             this.redraw();
         }
