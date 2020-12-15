@@ -122,6 +122,12 @@ export class DrawingApp {
         this.mouseX = mouseX;
         this.mouseY = mouseY;
 
+        if (this.isFocusPoint(this.mouseX, this.mouseY)) {
+            this.canvas.style.cursor = "nwse-resize";
+        } else {
+            this.canvas.style.cursor = "default";
+        }
+
         if (this.paint && this.ctrlKeyDown) {
             this.addClick(mouseX, mouseY, true);
             this.redraw();
@@ -129,6 +135,11 @@ export class DrawingApp {
 
         e.preventDefault();
     };
+
+    private isFocusPoint(mouseX: number, mouseY: number) {
+        console.log("show");
+        return mouseY > 100;
+    }
 
     private createUserEvents() {
         window.addEventListener(
