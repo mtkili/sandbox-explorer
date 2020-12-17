@@ -3,6 +3,7 @@
     "target": "es2020",
     "module": "esnext",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "allowJs": true,
     "lib": [

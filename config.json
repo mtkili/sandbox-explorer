@@ -1,0 +1,8 @@
+{
+    "server": {
+        "nodePort": 8081
+    },
+    "grid": {
+        "linecolor": "rgb(25,25,25)"
+    }
+}

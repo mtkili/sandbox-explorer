@@ -2,6 +2,8 @@ import { Grid } from "./Grid";
 import { Rectangular } from "./Rect";
 import { Box } from "./models/Box";
 
+import * as config from "../config.json";
+
 export class DrawingApp {
     private paint: boolean = false;
     private clickX: number[] = [];
@@ -25,6 +27,7 @@ export class DrawingApp {
         this.context.lineJoin = "round";
         this.context.strokeStyle = "black";
         this.context.lineWidth = 1;
+        console.log(config.server);
 
         this.paint = false;
         this.rect = new Rectangular(canvas, context);

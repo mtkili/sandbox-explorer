@@ -1,3 +1,5 @@
+import * as config from "../../config.json";
+
 export class Grid {
     constructor(
         private canvas: HTMLCanvasElement,
@@ -14,7 +16,7 @@ export class Grid {
             ctx.lineTo(x, h);
         }
 
-        ctx.strokeStyle = "rgb(25,25,25)";
+        ctx.strokeStyle = config.grid.linecolor;
         ctx.lineWidth = 1;
         // the stroke will actually paint the current path
         ctx.stroke();
@@ -25,7 +27,7 @@ export class Grid {
             ctx.lineTo(w, y);
         }
 
-        ctx.strokeStyle = "rgb(25,25,25)";
+        ctx.strokeStyle = config.grid.linecolor;
         ctx.lineWidth = 1;
         ctx.stroke();
     }
