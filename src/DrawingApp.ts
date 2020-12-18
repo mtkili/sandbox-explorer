@@ -1,6 +1,7 @@
 import { Grid } from "./Grid";
 import { Rectangular } from "./Rect";
 import { Box } from "./models/Box";
+import { ObjectFace } from "./models/ObjectFace";
 
 import * as config from "../config.json";
 
@@ -11,7 +12,7 @@ export class DrawingApp {
     private clickDrag: boolean[] = [];
     private scaleXY: number = 1.0;
     private rect: Rectangular;
-    private objects: Box[] = [];
+    private objects: ObjectFace[] = [];
     private mouseX: number = 0;
     private mouseY: number = 0;
     private shiftKeyDown: boolean = false;
@@ -27,12 +28,21 @@ export class DrawingApp {
         this.context.lineJoin = "round";
         this.context.strokeStyle = "black";
         this.context.lineWidth = 1;
-        console.log(config.server);
 
         this.paint = false;
         this.rect = new Rectangular(canvas, context);
         this.redraw();
         this.createUserEvents();
+
+        this.objects.push(
+            new ObjectFace(
+                canvas,
+                context,
+                200,
+                400,
+                "concat",
+            ),
+        );
     }
 
     private addClick(
@@ -49,16 +59,6 @@ export class DrawingApp {
         this.paint = false;
 
         if (this.shiftKeyDown) {
-            this.objects.push(
-                new Box(
-                    this.canvas,
-                    this.context,
-                    this.mouseX,
-                    this.mouseY,
-                    50,
-                    75,
-                ),
-            );
         }
 
         this.redraw();
@@ -146,7 +146,6 @@ export class DrawingApp {
         mouseX: number,
         mouseY: number,
     ) {
-        console.log("show");
         return mouseY > 100;
     }
 
