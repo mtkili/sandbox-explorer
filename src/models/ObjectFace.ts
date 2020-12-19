@@ -75,6 +75,12 @@ export class ObjectFace {
         ctx.lineTo(xx + w, ymax);
 
         ctx.stroke();
+        this.drawFunctionName(
+            this.x + arrowdepth,
+            this.y,
+            w - 2 * arrowdepth,
+            ymax - this.y,
+        );
     }
 
     private drawFunctionName(
@@ -84,13 +90,16 @@ export class ObjectFace {
         h: number,
     ) {
         let ctx = this.context;
-        this.context.font = "10px Verdana";
-        this.context.fillStyle = "rgb(255,255,30)";
-        this.context.fillText(
-            "I can draw text, too!",
-            10,
-            200,
-            200,
+        ctx.font = "20px Verdana";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "rgb(255,255,30)";
+        let textWidth = ctx.measureText(this.name).width;
+        ctx.fillText(
+            this.name + " (" + textWidth + ")",
+            xx + w / 2,
+            yy + h / 2,
+            100,
         );
     }
 
