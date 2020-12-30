@@ -147,14 +147,14 @@ export class DrawingApp {
         this.mouseX = mouseX;
         this.mouseY = mouseY;
 
-        if (
-            this.determineCursor(this.mouseX, this.mouseY)
-        ) {
-            this.canvas.style.cursor = "nwse-resize";
-            this.canvas.style.cursor = "nesw-resize";
-        } else {
-            this.canvas.style.cursor = "default";
-        }
+        // if (
+        //     this.determineCursor(this.mouseX, this.mouseY)
+        // ) {
+        //     this.canvas.style.cursor = "nwse-resize";
+        //     this.canvas.style.cursor = "nesw-resize";
+        // } else {
+        //     this.canvas.style.cursor = "default";
+        // }
 
         if (this.paint && this.ctrlKeyDown) {
             this.addClick(mouseX, mouseY, true);

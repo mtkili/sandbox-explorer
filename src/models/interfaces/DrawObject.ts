@@ -5,4 +5,6 @@ export interface DrawObject {
     draw(): void;
 
     clickToSelect(mouseX: number, mouseY: number): void;
+
+    drawFocus(): void;
 }
