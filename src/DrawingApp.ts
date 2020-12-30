@@ -67,6 +67,23 @@ export class DrawingApp {
         this.shiftKeyDown = e.shiftKey;
         this.ctrlKeyDown = e.ctrlKey;
         this.altKeyDown = e.altKey;
+
+        console.log(e);
+        if (e.type == "keyup" && e.code == "KeyA") {
+            let x = 100.0 + Math.floor(Math.random() * 800);
+            let y = 100 + Math.floor(Math.random() * 500);
+            this.objects.push(
+                new Box(
+                    this.canvas,
+                    this.context,
+                    x,
+                    y,
+                    50,
+                    50,
+                ),
+            );
+            this.redraw();
+        }
     };
 
     private mouseWheelHandler = (e: WheelEvent) => {

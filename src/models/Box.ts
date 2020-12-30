@@ -37,12 +37,12 @@ export class Box implements DrawObject {
         ctx.stroke();
     }
 
-    clickToSelect(xx: number, yy: number) {
+    clickToSelect(mouseX: number, mouseY: number) {
         this.selected =
-            xx >= this.x &&
-            xx <= this.x + this.w &&
-            yy >= this.y &&
-            yy <= this.y + this.h;
+            mouseX >= this.x &&
+            mouseX <= this.x + this.w &&
+            mouseY >= this.y &&
+            mouseY <= this.y + this.h;
     }
 
     drawFocus() {
