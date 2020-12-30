@@ -1,7 +1,8 @@
 import { Grid } from "./Grid";
 import { Rectangular } from "./Rect";
 import { Box } from "./models/Box";
-import { ObjectFace } from "./models/ObjectFace";
+import { DrawObject } from "./models/interfaces/DrawObject";
+// import { ObjectFace } from "./models/ObjectFace";
 
 import * as config from "../config.json";
 
@@ -12,7 +13,7 @@ export class DrawingApp {
     private clickDrag: boolean[] = [];
     private scaleXY: number = 1.0;
     private rect: Rectangular;
-    private objects: ObjectFace[] = [];
+    private objects: DrawObject[] = [];
     private mouseX: number = 0;
     private mouseY: number = 0;
     private shiftKeyDown: boolean = false;
@@ -35,13 +36,7 @@ export class DrawingApp {
         this.createUserEvents();
 
         this.objects.push(
-            new ObjectFace(
-                canvas,
-                context,
-                200,
-                400,
-                "concat",
-            ),
+            new Box(canvas, context, 200, 400, 100, 100),
         );
     }
 
@@ -254,11 +249,9 @@ export class DrawingApp {
 
         this.context.font = "36px Verdana";
         this.context.fillStyle = "white";
-        this.context.fillText(
-            "I can draw text, too!",
-            10,
-            200,
-            200,
-        );
+        this.context.textAlign = "left";
+        this.context.textBaseline = "left";
+
+        this.context.fillText("Hello World!", 10, 200, 200);
     }
 }

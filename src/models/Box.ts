@@ -1,14 +1,21 @@
-export class Box {
+import { DrawObject } from "./interfaces/DrawObject";
+
+export class Box implements DrawObject {
     private selected: boolean = false;
+    x: number;
+    y: number;
 
     constructor(
         private canvas: HTMLCanvasElement,
         private context: CanvasRenderingContext2D,
-        private x: number,
-        private y: number,
+        x: number,
+        y: number,
         private w: number,
         private h: number,
-    ) {}
+    ) {
+        this.x = x;
+        this.y = y;
+    }
 
     draw() {
         if (this.selected) {
