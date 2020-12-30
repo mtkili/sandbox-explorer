@@ -10,6 +10,35 @@ export class ImageObject implements DrawObject {
     h: number;
     image: HTMLImageElement;
 
+    invert() {
+        // let ctx = this.context;
+        // let canvas = this.canvas;
+        let canvas = <HTMLCanvasElement>(
+            document.createElement("canvas")
+        );
+        let ctx = canvas.getContext("2d");
+
+        // ctx.drawImage(this.image, 0, 0);
+        // const imageData = ctx.getImageData(
+        //     0,
+        //     0,
+        //     canvas.width,
+        //     canvas.height,
+        // );
+        var imageData = ctx.createImageData(
+            canvas.width,
+            canvas.height,
+        );
+
+        const data = imageData.data;
+        for (var i = 0; i < data.length; i += 4) {
+            data[i] = 255 - data[i]; // red
+            data[i + 1] = 255 - data[i + 1]; // green
+            data[i + 2] = 255 - data[i + 2]; // blue
+        }
+        ctx.putImageData(imageData, 0, 0);
+    }
+
     constructor(
         private canvas: HTMLCanvasElement,
         private context: CanvasRenderingContext2D,
@@ -26,6 +55,8 @@ export class ImageObject implements DrawObject {
         let loaded = () => {
             this.w = this.image.width;
             this.h = this.image.height;
+            console.log("One");
+            this.invert();
         };
         this.image.onload = loaded;
         this.image.src = imageSrc;
@@ -74,7 +105,7 @@ export class ImageObject implements DrawObject {
         }
 
         // done
-        this.context.putImageData(imageData, 0, 0);
+        //        this.context.putImageData(imageData, 0, 0);
     }
 
     draw() {

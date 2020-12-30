@@ -115,9 +115,11 @@ export class DrawingApp {
                     let image = this.objects[
                         i
                     ] as ImageObject;
-                    image.makeTransparant();
+                    // image.invert();
+                    //                    image.makeTransparant();
                 }
             }
+            this.redraw();
         }
     };
 
