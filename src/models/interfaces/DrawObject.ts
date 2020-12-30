@@ -1,6 +1,8 @@
 export interface DrawObject {
     x: number;
     y: number;
+    selected: boolean;
+    type: string;
 
     draw(): void;
 

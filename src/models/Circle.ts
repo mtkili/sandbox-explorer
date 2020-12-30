@@ -2,7 +2,8 @@ import { DrawObject } from "./interfaces/DrawObject";
 import * as effects from "./effects/DrawFocus";
 
 export class Circle implements DrawObject {
-    private selected: boolean = false;
+    selected: boolean = false;
+    type: string = "circle";
     x: number;
     y: number;
 

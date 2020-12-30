@@ -82,13 +82,15 @@ export class DrawingApp {
                 ),
             );
             this.redraw();
-        } else if (e.type == "keyup" && e.code == "KeyB") {
+        } else if (e.type == "keyup" && e.code == "KeyD") {
             this.objects.push(
                 new ImageObject(
                     this.canvas,
                     this.context,
                     this.mouseX,
                     this.mouseY,
+                    "https://media.s-bol.com/qYzWx2Q7jMXD/115x210.jpg",
+                    // "https://www.w3schools.com/tags/img_the_scream.jpg",
                 ),
             );
             this.redraw();
@@ -104,6 +106,18 @@ export class DrawingApp {
                 ),
             );
             this.redraw();
+        } else if (e.type == "keyup" && e.code == "KeyE") {
+            for (let i = 0; i < this.objects.length; ++i) {
+                if (
+                    this.objects[i].type === "image" &&
+                    this.objects[i].selected
+                ) {
+                    let image = this.objects[
+                        i
+                    ] as ImageObject;
+                    image.makeTransparant();
+                }
+            }
         }
     };
 
@@ -288,7 +302,7 @@ export class DrawingApp {
         this.context.font = "36px Verdana";
         this.context.fillStyle = "white";
         this.context.textAlign = "left";
-        this.context.textBaseline = "left";
+        // this.context.textBaseline = "Bottom";
 
         this.context.fillText("Hello World!", 10, 200, 200);
     }

@@ -2,7 +2,8 @@ import { DrawObject } from "./interfaces/DrawObject";
 import * as effects from "./effects/DrawFocus";
 
 export class Box implements DrawObject {
-    private selected: boolean = false;
+    type: string = "box";
+    selected: boolean = false;
     x: number;
     y: number;
 
