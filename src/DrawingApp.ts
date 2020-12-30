@@ -1,6 +1,7 @@
 import { Grid } from "./Grid";
 import { Rectangular } from "./Rect";
 import { Box } from "./models/Box";
+import { Image } from "./models/Image";
 import { DrawObject } from "./models/interfaces/DrawObject";
 // import { ObjectFace } from "./models/ObjectFace";
 
@@ -68,16 +69,25 @@ export class DrawingApp {
         this.ctrlKeyDown = e.ctrlKey;
         this.altKeyDown = e.altKey;
 
-        console.log(e);
         if (e.type == "keyup" && e.code == "KeyA") {
-            let x = 100.0 + Math.floor(Math.random() * 800);
-            let y = 100 + Math.floor(Math.random() * 500);
             this.objects.push(
                 new Box(
                     this.canvas,
                     this.context,
-                    x,
-                    y,
+                    this.mouseX,
+                    this.mouseY,
+                    50,
+                    50,
+                ),
+            );
+            this.redraw();
+        } else if (e.type == "keyup" && e.code == "KeyB") {
+            this.objects.push(
+                new Image(
+                    this.canvas,
+                    this.context,
+                    this.mouseX,
+                    this.mouseY,
                     50,
                     50,
                 ),
