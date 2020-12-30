@@ -1,7 +1,7 @@
 import { DrawObject } from "./interfaces/DrawObject";
 import * as effects from "./effects/DrawFocus";
 
-export class Image implements DrawObject {
+export class Circle implements DrawObject {
     private selected: boolean = false;
     x: number;
     y: number;

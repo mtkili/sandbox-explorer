@@ -1,7 +1,8 @@
 import { Grid } from "./Grid";
 import { Rectangular } from "./Rect";
 import { Box } from "./models/Box";
-import { Image } from "./models/Image";
+import { ImageObject } from "./models/ImageObject";
+import { Circle } from "./models/Circle";
 import { DrawObject } from "./models/interfaces/DrawObject";
 // import { ObjectFace } from "./models/ObjectFace";
 
@@ -83,7 +84,17 @@ export class DrawingApp {
             this.redraw();
         } else if (e.type == "keyup" && e.code == "KeyB") {
             this.objects.push(
-                new Image(
+                new ImageObject(
+                    this.canvas,
+                    this.context,
+                    this.mouseX,
+                    this.mouseY,
+                ),
+            );
+            this.redraw();
+        } else if (e.type == "keyup" && e.code == "KeyC") {
+            this.objects.push(
+                new Circle(
                     this.canvas,
                     this.context,
                     this.mouseX,
