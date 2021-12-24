@@ -1,18 +1,18 @@
 {
-  "name": "typescript-template",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.html",
-  "scripts": {
-    "start": "parcel index.html --open",
-    "build": "parcel build index.html"
-  },
-  "dependencies": {
-    "jest": "27.4.5",
-    "typescript": "latest"
-  },
-  "devDependencies": {
-    "parcel-bundler": "^1.6.1"
-  },
-  "keywords": []
+    "name": "typescript-template",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "start": "parcel index.html --open",
+        "build": "parcel build index.html"
+    },
+    "dependencies": {
+        "jest": "24.8.0",
+        "typescript": "latest"
+    },
+    "devDependencies": {
+        "parcel-bundler": "^1.6.1"
+    },
+    "keywords": []
 }
