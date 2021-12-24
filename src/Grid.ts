@@ -1,10 +1,11 @@
 import * as config from "../../config.json";
+import { BaseCanvas } from "./models/BaseCanvas";
 
-export class Grid {
-    constructor(
-        private canvas: HTMLCanvasElement,
-        private context: CanvasRenderingContext2D,
-    ) {}
+export class Grid extends BaseCanvas {
+    // constructor(
+    //     private canvas: HTMLCanvasElement,
+    //     private context: CanvasRenderingContext2D,
+    // ) {}
 
     public drawGrid(step: number) {
         let w = this.canvas.width;
