@@ -1,5 +1,4 @@
 import { Grid } from "./Grid";
-import { Rectangular } from "./Rect";
 import { DrawingApp } from "./DrawingApp";
 
 let canvas = document.getElementById(

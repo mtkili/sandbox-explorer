@@ -1,4 +1,4 @@
-import * as config from "../../config.json";
+import * as config from "../config.json";
 import { BaseCanvas } from "./models/BaseCanvas";
 
 export class Grid extends BaseCanvas {
